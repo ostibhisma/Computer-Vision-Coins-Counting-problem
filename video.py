@@ -21,7 +21,7 @@ class CoinVideo:
     # getting frame from the video and converted to RGB color channel
     def get_frame(self):
         _,self.frame = self.cap.read()
-        # self.frame = cv2.cvtColor(self.frame,cv2.COLOR_BGR2RGB)
+        self.frame = cv2.cvtColor(self.frame,cv2.COLOR_BGR2RGB)
         return self.frame
 
     # converted RGB channel to GRAY image and used erosion operation to
