@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 import pandas as pd
 import pickle
+import matplotlib.pyplot as plt
+
 
 class CoinRecognizer:
     """
@@ -57,7 +59,6 @@ class CoinRecognizer:
             self.means_hue.append(mean_hue)
             self.means_saturation.append(mean_saturation)
             self.means_value.append(mean_value)
-        print(len(self.center))
         return self.radii, self.means_hue, self.means_saturation, self.means_value,self.center
         
     # loading the model
@@ -83,21 +84,21 @@ class CoinRecognizer:
     # calculating the total amount and shown in the live screen 
     def show(self,frame):
         total_money = np.sum(self.test_labels)
-        print(len(self.test_labels))
-        for (x,y) in self.center:
-            for i in self.test_labels:
-                text1 = f"{str(i)} rupees"
-                i = cv2.drawContours(frame, self.contours, -1, (0, 0, 255), 2)
-                output = cv2.putText(i, text1,(int(x),int(y)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 1)
+        for (x,y),i in zip(self.center,self.test_labels):
+            text1 = f"{str(i)} rupees"
+            j = cv2.drawContours(frame, self.contours, -1, (0, 0, 255), 2)
+            output = cv2.putText(j, text1,(int(x),int(y)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 5,cv2.LINE_AA)
         text = f"Total amount is : {total_money}"
         output = cv2.putText(output, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
         cv2.imshow("Output", output)
         
         
     def start(self):
-        cap = cv2.VideoCapture("0")
+        cap = cv2.VideoCapture("coin.mp4")
         while True:
             _, frame = cap.read()
+            if _ == False:
+                break
             coins_mask = self.get_coins_mask(frame)
             contours = self.get_contours(coins_mask=coins_mask)
             self.get_data(contours,frame)
