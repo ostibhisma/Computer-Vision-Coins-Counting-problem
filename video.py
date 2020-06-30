@@ -90,7 +90,7 @@ class CoinVideo:
             i = cv2.drawContours(self.frame,self.contours,-1,(0,0,255),2)
             output = cv2.putText(i,text1,(int(self.x),int(self.y)),cv2.FONT_HERSHEY_SIMPLEX, 1,(255,0,0),1)
         text = f"Total amount is : {total_money}"
-        output = cv2.putText(self.frame,text,(10,30),cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2)
+        output = cv2.putText(output,text,(10,30),cv2.FONT_HERSHEY_SIMPLEX, 1,(0,255,0),2)
         cv2.imshow("Output",output)
 
 
