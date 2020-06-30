@@ -94,7 +94,7 @@ class CoinRecognizer:
         
         
     def start(self):
-        cap = cv2.VideoCapture("coin.mp4")
+        cap = cv2.VideoCapture(0)
         while True:
             _, frame = cap.read()
             if _ == False:
